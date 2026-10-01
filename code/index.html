@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Daily Canvas turns one sentence about your feelings into one pointillist paint dot."
+    />
+    <title>Daily Canvas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <a class="brand" href="#main" aria-label="Daily Canvas home">
+          <span class="brand-mark" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+          <span>Daily Canvas</span>
+        </a>
+        <p class="header-note">A private mood journal</p>
+      </header>
+
+      <main id="main" class="workspace">
+        <section class="studio" aria-labelledby="canvas-title">
+          <div class="studio-heading">
+            <div>
+              <p class="eyebrow" id="selected-day-label">Adding to today</p>
+              <h1 id="canvas-title">This month, in color.</h1>
+            </div>
+            <button class="today-button" id="today-button" type="button">Back to today</button>
+          </div>
+
+          <div
+            class="paint-canvas"
+            id="paint-canvas"
+            role="group"
+            aria-label="Mood painting for the displayed month"
+          >
+            <div class="canvas-grain" aria-hidden="true"></div>
+            <div class="empty-canvas" id="empty-canvas">
+              <span class="empty-dab" aria-hidden="true"></span>
+              <p>Your first thought will begin this month’s painting.</p>
+            </div>
+            <div id="dots-layer" class="dots-layer"></div>
+          </div>
+
+          <form class="composer" id="mood-form" novalidate>
+            <label for="mood-input">
+              <span>How are you feeling?</span>
+              <span class="entry-date-label" id="entry-date-label">Adding to today</span>
+            </label>
+            <div class="input-row">
+              <textarea
+                id="mood-input"
+                name="mood"
+                rows="2"
+                maxlength="240"
+                placeholder="I feel calm after a long walk…"
+                aria-describedby="analysis-line input-error"
+                required
+              ></textarea>
+              <button class="paint-button" id="paint-button" type="submit">
+                <span>Paint</span>
+                <span aria-hidden="true">●</span>
+              </button>
+            </div>
+            <div class="composer-meta">
+              <p class="analysis-line" id="analysis-line" aria-live="polite">
+                <span class="mood-swatch neutral" id="suggestion-swatch"></span>
+                <span id="suggestion-text">Your suggested color will appear here.</span>
+              </p>
+              <span class="character-count" id="character-count">0 / 240</span>
+            </div>
+            <p class="form-error" id="input-error" role="alert"></p>
+
+            <fieldset class="palette" id="palette">
+              <legend>Choose a different color</legend>
+              <div id="palette-options" class="palette-options"></div>
+            </fieldset>
+          </form>
+
+          <section class="moments" aria-labelledby="moments-title">
+            <div class="section-title-row">
+              <div>
+                <p class="eyebrow">Behind the dots</p>
+                <h2 id="moments-title">This month’s moments</h2>
+              </div>
+              <span class="moment-count" id="moment-count">0 moments</span>
+            </div>
+            <ol class="moment-list" id="moment-list"></ol>
+          </section>
+        </section>
+
+        <aside class="calendar-panel" aria-labelledby="calendar-title">
+          <div class="calendar-header">
+            <div>
+              <p class="eyebrow">Your month</p>
+              <h2 id="calendar-title">September 2026</h2>
+            </div>
+            <div class="calendar-controls">
+              <button id="previous-month" type="button" aria-label="Previous month">←</button>
+              <button id="next-month" type="button" aria-label="Next month">→</button>
+            </div>
+          </div>
+          <div class="weekday-row" aria-hidden="true">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span>
+            <span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+          <div class="calendar-grid" id="calendar-grid" role="grid"></div>
+
+          <div class="legend" aria-label="Mood color legend">
+            <p class="eyebrow">Color key</p>
+            <div id="legend-items" class="legend-items"></div>
+          </div>
+
+          <details class="mood-settings">
+            <summary>Personalize moods</summary>
+
+            <section class="palette-settings" aria-labelledby="palette-settings-title">
+              <h3 id="palette-settings-title">Choose your palette</h3>
+              <p>Change the color assigned to any mood.</p>
+              <div id="palette-settings-list" class="palette-settings-list"></div>
+            </section>
+
+            <form class="custom-mood-form" id="custom-mood-form" novalidate>
+              <h3>Add your own mood word</h3>
+              <p>A word or phrase becomes a new mood and color.</p>
+              <label for="custom-mood-term">Word or phrase</label>
+              <input
+                id="custom-mood-term"
+                name="term"
+                type="text"
+                maxlength="40"
+                placeholder="Jealous"
+                required
+              />
+              <label for="custom-mood-color">Mood color</label>
+              <div class="custom-color-row">
+                <input id="custom-mood-color" name="color" type="color" value="#6F8F72" />
+                <button type="submit">Add mood</button>
+              </div>
+              <p class="custom-mood-status" id="custom-mood-status" role="status"></p>
+            </form>
+
+            <div class="custom-mood-list" id="custom-mood-list"></div>
+          </details>
+
+          <p class="privacy-note">
+            <span aria-hidden="true">⌂</span>
+            Your words stay in this browser.
+          </p>
+        </aside>
+      </main>
+    </div>
+
+    <div class="toast" id="toast">
+      <span id="toast-message" role="status" aria-live="polite"></span>
+      <button id="undo-button" type="button" hidden>Undo</button>
+    </div>
+
+    <template id="moment-template">
+      <li class="moment-card">
+        <button class="moment-dot" type="button"></button>
+        <div class="moment-copy">
+          <p></p>
+          <span></span>
+          <form class="inline-edit-form" novalidate>
+            <label>
+              <span class="visually-hidden">Edit this moment</span>
+              <textarea class="inline-edit-input" rows="2" maxlength="240" required></textarea>
+            </label>
+            <p class="inline-edit-error" role="alert"></p>
+            <div class="inline-edit-controls">
+              <button class="inline-save-button" type="submit">Save</button>
+              <button class="inline-cancel-button" type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+        <div class="moment-actions">
+          <button class="edit-button" type="button">Edit</button>
+          <button class="delete-button" type="button">Remove</button>
+        </div>
+      </li>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
