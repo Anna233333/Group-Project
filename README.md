@@ -1,4 +1,4 @@
-# Group Project — Daily Canvas
+# Group Project — Colorful Emotional Diary
 
 This group project contains Daily Canvas, a private, browser-based pointillist mood journal. Write one sentence, choose **Paint**, and the app turns that moment into one paint dot. A sentence with several recognized feelings becomes one soft, multicolor dot, while every entry in a month joins the same evolving pointillist composition and retains its original date.
 
