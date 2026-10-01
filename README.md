@@ -20,7 +20,7 @@ What part of that experience matters most?
 - One of the most important part is how you (the user) express or records your mood
 
 Does your current prototype represent that experience well? What does it capture or leave out?
-- The user currently can document multiple emotions on the website, however the dots represent the multicolors based on the intensity of the emotion. However, users cannot customize their dot.
+- The user currently can document multiple emotions on the website, but the dots represent the multicolors based on the intensity of the emotion. However, users cannot customize their dot.
 
 ## Run it
 
