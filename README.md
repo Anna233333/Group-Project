@@ -17,7 +17,7 @@ What phenomenon or experience is your project representing?
 - The phenomenon is representing emotions through colored dots
 
 What part of that experience matters most?
-- How you (the user) express or records your mood
+- One of the most important part is how you (the user) express or records your mood
 
 Does your current prototype represent that experience well? What does it capture or leave out?
 - The user currently can document multiple emotions on the website, however the dots represent the multicolors based on the intensity of the emotion. However, users cannot customize their dot.
